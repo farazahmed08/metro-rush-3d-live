@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#081018" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Metro Rush 3D</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas" aria-label="Metro Rush 3D game canvas"></canvas>
+      <div class="impact-flash" id="impact-flash" aria-hidden="true"></div>
+
+      <div class="hud">
+        <div class="stat">
+          <span>Distance</span>
+          <strong id="distance">0m</strong>
+        </div>
+        <div class="stat">
+          <span>Coins</span>
+          <strong id="coins">0</strong>
+        </div>
+        <div class="stat">
+          <span>Speed</span>
+          <strong id="speed">0</strong>
+        </div>
+        <div class="powerup-stat" id="magnet-status" hidden>
+          <span>Magnet</span>
+          <strong id="magnet-time">0s</strong>
+        </div>
+        <div class="powerup-stat multiplier" id="multiplier-status" hidden>
+          <span>x2 Coins</span>
+          <strong id="multiplier-time">0s</strong>
+        </div>
+      </div>
+      <button class="pause-button" id="pause-button" aria-label="Pause game" hidden>Ⅱ</button>
+
+      <div class="overlay visible" id="start-screen">
+        <p class="eyebrow">Original endless runner</p>
+        <h1>Metro Rush 3D</h1>
+        <p>
+          Dodge trains, vault barriers, slide under signs, and chase the golden line through a
+          sunlit rail district.
+        </p>
+        <div class="home-menu-row">
+          <button
+            class="menu-trigger"
+            id="character-menu-button"
+            aria-expanded="false"
+            aria-controls="character-menu"
+          >
+            <span class="avatar compact nova" id="selected-character-icon"></span>
+            <span class="menu-copy">
+              <small>Character</small>
+              <strong id="selected-character-name">Nova</strong>
+            </span>
+          </button>
+          <button
+            class="menu-trigger"
+            id="weather-menu-button"
+            aria-expanded="false"
+            aria-controls="weather-menu"
+          >
+            <span class="menu-symbol" id="selected-weather-icon">☀</span>
+            <span class="menu-copy">
+              <small>Weather</small>
+              <strong id="selected-weather-name">Sunny</strong>
+            </span>
+          </button>
+        </div>
+        <div class="selection-panel" id="character-menu" hidden>
+          <div class="character-picker" aria-label="Choose your runner">
+            <button class="character-card selected" data-character="nova" aria-pressed="true">
+              <span class="avatar nova"></span>
+              <strong>Nova</strong>
+              <small>Street sprinter</small>
+            </button>
+            <button class="character-card" data-character="jax" aria-pressed="false">
+              <span class="avatar jax"></span>
+              <strong>Jax</strong>
+              <small>Rail rebel</small>
+            </button>
+            <button class="character-card" data-character="luna" aria-pressed="false">
+              <span class="avatar luna"></span>
+              <strong>Luna</strong>
+              <small>Night runner</small>
+            </button>
+          </div>
+        </div>
+        <div class="selection-panel" id="weather-menu" hidden>
+          <div class="weather-picker" aria-label="Choose weather">
+            <button class="weather-card selected" data-weather="sunny" aria-pressed="true">
+              <span>☀</span>
+              <strong>Sunny</strong>
+            </button>
+            <button class="weather-card" data-weather="cloudy" aria-pressed="false">
+              <span>☁</span>
+              <strong>Cloudy</strong>
+            </button>
+            <button class="weather-card" data-weather="rain" aria-pressed="false">
+              <span>☂</span>
+              <strong>Rain</strong>
+            </button>
+            <button class="weather-card" data-weather="snow" aria-pressed="false">
+              <span>❄</span>
+              <strong>Snow</strong>
+            </button>
+          </div>
+        </div>
+        <button class="primary-button" id="start-button">Start Run</button>
+        <div class="controls">
+          <span>← → switch lanes</span>
+          <span>↑ / Space jump</span>
+          <span>↓ slide</span>
+        </div>
+        <div class="mobile-hint">
+          <span>Swipe left / right</span>
+          <span>Swipe up to jump</span>
+          <span>Swipe down to slide</span>
+        </div>
+      </div>
+
+      <div class="overlay" id="game-over-screen">
+        <p class="eyebrow">Run ended</p>
+        <h2>Signal lost</h2>
+        <p id="final-score">0m • 0 coins</p>
+        <div class="game-over-actions">
+          <button class="primary-button" id="restart-button">Run Again</button>
+          <button class="secondary-button" id="home-button">Home</button>
+        </div>
+      </div>
+
+      <div class="overlay compact-overlay" id="pause-screen">
+        <p class="eyebrow">Paused</p>
+        <h2>Take a breath</h2>
+        <div class="game-over-actions">
+          <button class="primary-button" id="resume-button">Resume</button>
+          <button class="secondary-button" id="pause-home-button">Home</button>
+        </div>
+      </div>
+
+      <div class="overlay countdown-overlay" id="countdown-screen">
+        <p>Resuming in</p>
+        <strong id="countdown-value">3</strong>
+      </div>
+
+      <div class="mobile-controls" aria-hidden="true">
+        <button data-action="left">◀</button>
+        <button data-action="jump">▲</button>
+        <button data-action="slide">▼</button>
+        <button data-action="right">▶</button>
+      </div>
+    </div>
+
+    <script type="module" src="./src/game.js"></script>
+  </body>
+</html>
